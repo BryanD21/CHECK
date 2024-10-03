@@ -63,6 +63,38 @@
         .back a:hover {
             text-decoration: underline;
         }
+        #preview-container {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        #preview-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #preview-list li {
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .check {
+            color: green;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+        .x {
+            color: red;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -124,6 +156,15 @@
                 <button onclick="markAsDelivered(this)">Marcar como entregado</button>
             </li>
         </ul>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="generatePreview()">Generar Previsualización</button>
+        </div>
+
+        <div id="preview-container">
+            <h3>Previsualización de Productos Entregados</h3>
+            <ul id="preview-list"></ul>
+        </div>
+
         <div class="back">
             <a href="index.html">Volver a selección de kits</a>
         </div>
@@ -133,6 +174,31 @@
         function markAsDelivered(button) {
             var listItem = button.parentNode;
             listItem.classList.toggle("completed");
+        }
+
+        function generatePreview() {
+            var productList = document.getElementById("product-list").children;
+            var previewList = document.getElementById("preview-list");
+            previewList.innerHTML = ""; // Limpiar la previsualización anterior
+
+            // Recorrer la lista de productos y agregar los entregados y no entregados a la previsualización
+            for (var i = 0; i < productList.length; i++) {
+                var itemText = productList[i].innerText.split("Marcar como entregado")[0].trim();
+                var li = document.createElement("li");
+
+                if (productList[i].classList.contains("completed")) {
+                    // Si el producto ha sido entregado, mostrar con ✔️
+                    li.innerHTML = '<span class="check">✔️</span>' + itemText;
+                } else {
+                    // Si el producto no ha sido entregado, mostrar con ❌
+                    li.innerHTML = '<span class="x">❌</span>' + itemText;
+                }
+
+                previewList.appendChild(li);
+            }
+
+            // Mostrar el contenedor de previsualización
+            document.getElementById("preview-container").style.display = "block";
         }
     </script>
 </body>
