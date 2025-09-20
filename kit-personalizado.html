@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIT PERSONALIZADO - LENSOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --custom: #8b5cf6;
+            --border-radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--custom);
+            letter-spacing: 1px;
+        }
+
+        .logo a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .logo a:hover {
+            color: var(--custom);
+        }
+
+        .logo a i {
+            margin-right: 0.5rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+            margin-bottom: 2rem;
+        }
+
+        .header {
+            background: var(--custom);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h2 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .config-container {
+            padding: 1.5rem;
+        }
+
+        .config-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .config-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .config-section h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .config-section h3 i {
+            margin-right: 0.75rem;
+            color: var(--custom);
+        }
+
+        .config-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option-item label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .option-select, .option-input {
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .option-select:focus, .option-input:focus {
+            outline: none;
+            border-color: var(--custom);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .quantity-btn {
+            background: #f1f5f9;
+            border: none;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 36px;
+            border: none;
+            text-align: center;
+            font-weight: 500;
+            -moz-appearance: textfield;
+        }
+
+        .quantity-input::-webkit-outer-spin-button,
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .actions {
+            padding: 0 1.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--custom);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .preview-container {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .preview-container h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .preview-list {
+            list-style: none;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            color: var(--success);
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .logo h1 {
+                font-size: 1.75rem;
+            }
+            
+            .config-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <h1>LENSOR</h1>
+        <a href="index.html">
+            <i class="fas fa-arrow-left"></i> Volver a selección de kits
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h2>KIT PERSONALIZADO</h2>
+            <p>Configure su sistema según sus necesidades</p>
+        </div>
+        
+        <div class="config-container">
+            <div class="config-section">
+                <h3><i class="fas fa-camera"></i> Cámaras de Seguridad</h3>
+                <div class="config-options">
+                    <div class="option-item">
+                        <label for="cameras">Cantidad de Cámaras</label>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity('cameras', -1)">-</button>
+                            <input type="number" id="cameras" class="quantity-input" value="4" min="1" max="32">
+                            <button class="quantity-btn" onclick="updateQuantity('cameras', 1)">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-item">
+                        <label for="camera-type">Tipo de Cámara</label>
+                        <select id="camera-type" class="option-select">
+                            <option value="dome">Cámara Dome</option>
+                            <option value="bullet">Cámara Bullet</option>
+                            <option value="ptz">Cámara PTZ</option>
+                            <option value="360">Cámara 360°</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <h3><i class="fas fa-video"></i> Grabador</h3>
+                <div class="config-options">
+                    <div class="option-item">
+                        <label for="dvr-type">Tipo de Grabador</label>
+                        <select id="dvr-type" class="option-select">
+                            <option value="dvr">DVR (Para cámaras análogas)</option>
+                            <option value="nvr">NVR (Para cámaras IP)</option>
+                            <option value="xvr">XVR (Híbrido)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-item">
+                        <label for="dvr-channels">Canales del Grabador</label>
+                        <select id="dvr-channels" class="option-select">
+                            <option value="4">4 Canales</option>
+                            <option value="8" selected>8 Canales</option>
+                            <option value="16">16 Canales</option>
+                            <option value="32">32 Canales</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <h3><i class="fas fa-hdd"></i> Almacenamiento</h3>
+                <div class="config-options">
+                    <div class="option-item">
+                        <label for="hdd">Disco Duro</label>
+                        <select id="hdd" class="option-select">
+                            <option value="500GB">500GB</option>
+                            <option value="1TB">1TB</option>
+                            <option value="2TB" selected>2TB</option>
+                            <option value="4TB">4TB</option>
+                            <option value="6TB">6TB</option>
+                            <option value="8TB">8TB</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <h3><i class="fas fa-plug"></i> Accesorios</h3>
+                <div class="config-options">
+                    <div class="option-item">
+                        <label for="cable">Metros de Cable por Cámara</label>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity('cable', -5)">-</button>
+                            <input type="number" id="cable" class="quantity-input" value="20" min="5" max="100" step="5">
+                            <button class="quantity-btn" onclick="updateQuantity('cable', 5)">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-item">
+                        <label for="power">Fuente de Alimentación</label>
+                        <select id="power" class="option-select">
+                            <option value="individual">Transformadores Individuales</option>
+                            <option value="centralizada">Fuente Centralizada</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <h3><i class="fas fa-tools"></i> Componentes Adicionales</h3>
+                <div class="config-options">
+                    <div class="option-item">
+                        <label>
+                            <input type="checkbox" id="protector" checked> 
+                            Protector de Voltaje
+                        </label>
+                    </div>
+                    
+                    <div class="option-item">
+                        <label>
+                            <input type="checkbox" id="regleta" checked> 
+                            Regleta
+                        </label>
+                    </div>
+                    
+                    <div class="option-item">
+                        <label>
+                            <input type="checkbox" id="ups"> 
+                            Sistema UPS (Respaldo de energía)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn" onclick="generateCustomKit()">
+                <i class="fas fa-check-circle"></i> Confirmar Kit Personalizado
+            </button>
+        </div>
+        
+        <div class="preview-container" id="preview-container">
+            <h3>Resumen de su Kit Personalizado</h3>
+            <ul class="preview-list" id="preview-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Función para actualizar cantidades
+        function updateQuantity(inputId, change) {
+            const input = document.getElementById(inputId);
+            let value = parseInt(input.value) + change;
+            
+            // Asegurarse de que esté dentro de los límites
+            const min = parseInt(input.min);
+            const max = parseInt(input.max);
+            
+            if (value < min) value = min;
+            if (value > max) value = max;
+            
+            input.value = value;
+        }
+        
+        // Función para generar el kit personalizado
+        function generateCustomKit() {
+            const cameras = document.getElementById('cameras').value;
+            const cameraType = document.getElementById('camera-type').value;
+            const dvrType = document.getElementById('dvr-type').value;
+            const dvrChannels = document.getElementById('dvr-channels').value;
+            const hdd = document.getElementById('hdd').value;
+            const cablePerCamera = document.getElementById('cable').value;
+            const powerType = document.getElementById('power').value;
+            const protector = document.getElementById('protector').checked;
+            const regleta = document.getElementById('regleta').checked;
+            const ups = document.getElementById('ups').checked;
+            
+            const totalCable = cameras * cablePerCamera;
+            
+            const previewList = document.getElementById('preview-list');
+            previewList.innerHTML = '';
+            
+            // Mapear valores seleccionados a texto descriptivo
+            const cameraTypeText = {
+                'dome': 'Cámara Dome',
+                'bullet': 'Cámara Bullet', 
+                'ptz': 'Cámara PTZ',
+                '360': 'Cámara 360°'
+            };
+            
+            const dvrTypeText = {
+                'dvr': 'DVR',
+                'nvr': 'NVR',
+                'xvr': 'XVR Híbrido'
+            };
+            
+            const powerTypeText = {
+                'individual': 'Transformadores Individuales',
+                'centralizada': 'Fuente Centralizada'
+            };
+            
+            // Construir la lista de previsualización
+            const items = [
+                { text: `${dvrTypeText[dvrType]} de ${dvrChannels} canales`, checked: true },
+                { text: `${cameras} ${cameraTypeText[cameraType]}`, checked: true },
+                { text: `Disco Duro ${hdd}`, checked: true },
+                { text: `${cameras} Conectores de Video`, checked: true },
+                { text: `${cameras} Conectores de Corriente`, checked: true },
+                { text: `${powerTypeText[powerType]}`, checked: true },
+                { text: `${totalCable} Metros de Cable`, checked: true },
+                { text: `${cameras} Cajas de Registro`, checked: true },
+                { text: `Protector de Voltaje`, checked: protector },
+                { text: `Regleta`, checked: regleta },
+                { text: `Sistema UPS`, checked: ups },
+                { text: `Cable de Red`, checked: true }
+            ];
+            
+            // Agregar items a la lista
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'preview-item';
+                
+                if (item.checked) {
+                    li.innerHTML = `<span class="check"><i class="fas fa-check-circle"></i></span> ${item.text}`;
+                } else {
+                    li.innerHTML = `<span style="color: var(--secondary); margin-right: 0.75rem;"><i class="fas fa-times-circle"></i></span> <s>${item.text}</s>`;
+                }
+                
+                previewList.appendChild(li);
+            });
+            
+            // Mostrar la previsualización con animación
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.style.display = 'block';
+            
+            // Desplazarse suavemente hacia la previsualización
+            previewContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Efecto de carga inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = "1";
+        });
+    </script>
+</body>
+</html>

@@ -3,203 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIT 4 CÁMARAS DE SEGURIDAD - LENSOR</title>
+    <title>KIT 2 CÁMARAS DE SEGURIDAD - LENSOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border-radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-        }
-        ul {
-            list-style: none;
             padding: 0;
+            box-sizing: border-box;
         }
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
         }
-        li.completed {
+
+        .logo {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .logo a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .logo a:hover {
+            color: var(--primary);
+        }
+
+        .logo a i {
+            margin-right: 0.5rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+            margin-bottom: 2rem;
+        }
+
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h2 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: white;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .config-container {
+            padding: 1.5rem;
+        }
+
+        .config-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .config-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .config-section h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .config-section h3 i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+
+        .config-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option-item label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .option-select, .option-input {
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .option-select:focus, .option-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .product-list {
+            padding: 0;
+            list-style: none;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease;
+            animation-fill-mode: backwards;
+        }
+
+        .product-item:nth-child(1) { animation-delay: 0.1s; }
+        .product-item:nth-child(2) { animation-delay: 0.2s; }
+        .product-item:nth-child(3) { animation-delay: 0.3s; }
+        .product-item:nth-child(4) { animation-delay: 0.4s; }
+        .product-item:nth-child(5) { animation-delay: 0.5s; }
+        .product-item:nth-child(6) { animation-delay: 0.6s; }
+        .product-item:nth-child(7) { animation-delay: 0.7s; }
+        .product-item:nth-child(8) { animation-delay: 0.8s; }
+        .product-item:nth-child(9) { animation-delay: 0.9s; }
+        .product-item:nth-child(10) { animation-delay: 1.0s; }
+        .product-item:nth-child(11) { animation-delay: 1.1s; }
+
+        .product-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .product-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--secondary);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .product-checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .product-checkbox.checked i {
+            display: block;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .product-checkbox i {
+            display: none;
+        }
+
+        .product-content {
+            flex-grow: 1;
+        }
+
+        .product-content h3 {
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+
+        .product-select {
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: var(--dark);
+            margin-top: 0.5rem;
+            width: 100%;
+            max-width: 120px;
+            transition: var(--transition);
+        }
+
+        .product-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .product-item.completed .product-content h3 {
             text-decoration: line-through;
-            color: #888;
+            color: var(--secondary);
         }
-        select {
-            padding: 5px;
-            margin-left: 10px;
+
+        .actions {
+            padding: 0 1.5rem 1.5rem;
+            text-align: center;
         }
-        button {
-            padding: 5px 10px;
-            background-color: #28a745;
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        .back {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .back a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .back a:hover {
-            text-decoration: underline;
-        }
-        #preview-container {
-            display: none;
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-        #preview-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        #preview-list li {
-            margin: 5px 0;
-            padding: 5px;
-            border-bottom: 1px solid #ccc;
-            display: flex;
-            justify-content: space-between;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
         }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .preview-container {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .preview-container h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .preview-list {
+            list-style: none;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
         .check {
-            color: green;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-right: 10px;
+            color: var(--success);
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
         }
+
         .x {
-            color: red;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-right: 10px;
+            color: var(--danger);
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .logo h1 {
+                font-size: 1.75rem;
+            }
+            
+            .config-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-item {
+                padding: 0.75rem;
+            }
+            
+            .product-checkbox {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="logo">
+        <h1>LENSOR</h1>
+        <a href="index.html">
+            <i class="fas fa-arrow-left"></i> Volver a selección de kits
+        </a>
+    </div>
+
     <div class="container">
-        <h2>Productos a Entregar - KIT 4 CÁMARAS DE SEGURIDAD</h2>
-        <ul id="product-list">
-            <li>
-                Grabador (XVR)
-                <select id="dvr">
-                    <option value="4Ch">4Ch</option>
-                    <option value="8Ch">8Ch</option>
-                    <option value="16Ch">16Ch</option>
-                </select>
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                4 Cámaras de Seguridad
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                Disco Duro
-                <select id="disco-duro">
-                    <option value="500GB">500GB</option>
-                    <option value="1TB">1TB</option>
-                    <option value="2TB">2TB</option>
-                </select>
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                4 Conectores de Video
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                4 Conectores de Corriente
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                4 Transformadores
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                80 Metros de Cable
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                4 Cajas de Registro
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                Protector de Voltaje
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                Regleta
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-            <li>
-                Cable de Red
-                <button onclick="markAsDelivered(this)">Marcar como entregado</button>
-            </li>
-        </ul>
-        <div style="text-align: center; margin-top: 20px;">
-            <button onclick="generatePreview()">Generar Previsualización</button>
+        <div class="header">
+            <h2>KIT 2 CÁMARAS DE SEGURIDAD</h2>
+            <p>Productos a entregar</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
         </div>
-
-        <div id="preview-container">
+        
+        <div class="config-container">
+            <div class="config-section">
+                <h3><i class="fas fa-plug"></i> Configuración de Alimentación</h3>
+                <div class="config-options">
+                    <div class="option-item">
+                        <label for="power-type">Tipo de Alimentación</label>
+                        <select id="power-type" class="option-select" onchange="toggleTransformers()">
+                            <option value="individual">Transformadores Individuales</option>
+                            <option value="centralizada">Fuente Centralizada</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-item" id="transformers-item">
+                        <label for="transformers">Cantidad de Transformadores</label>
+                        <select id="transformers" class="option-select">
+                            <option value="2">2 Transformadores</option>
+                            <option value="1">1 Transformador</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="config-container">
+            <ul class="product-list" id="product-list">
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Grabador (DVR)</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>2 Cámaras de Seguridad</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Disco Duro</h3>
+                        <select class="product-select" id="disco-duro">
+                            <option value="500GB">500GB</option>
+                            <option value="1TB">1TB</option>
+                            <option value="2TB">2TB</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>2 Conectores de Video</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>2 Conectores de Corriente</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item" id="transformers-product">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3 id="transformers-text">2 Transformadores</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>40 Metros de Cable</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>2 Cajas de Registro</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Protector de Voltaje</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Regleta</h3>
+                    </div>
+                </div>
+                
+                <div class="product-item">
+                    <div class="product-checkbox" onclick="toggleDelivered(this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Cable de Red</h3>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        
+        <div class="actions">
+            <button class="btn" onclick="generatePreview()">
+                <i class="fas fa-eye"></i> Generar Previsualización
+            </button>
+        </div>
+        
+        <div class="preview-container" id="preview-container">
             <h3>Previsualización de Productos Entregados</h3>
-            <ul id="preview-list"></ul>
-        </div>
-
-        <div class="back">
-            <a href="index.html">Volver a selección de kits</a>
+            <ul class="preview-list" id="preview-list"></ul>
         </div>
     </div>
 
     <script>
-        function markAsDelivered(button) {
-            var listItem = button.parentNode;
-            listItem.classList.toggle("completed");
-        }
-
-        function generatePreview() {
-            var productList = document.getElementById("product-list").children;
-            var previewList = document.getElementById("preview-list");
-            previewList.innerHTML = ""; // Limpiar la previsualización anterior
-
-            // Recorrer la lista de productos y agregar los entregados y no entregados a la previsualización
-            for (var i = 0; i < productList.length; i++) {
-                var itemText = productList[i].innerText.split("Marcar como entregado")[0].trim();
-                var li = document.createElement("li");
-
-                if (productList[i].classList.contains("completed")) {
-                    // Si el producto ha sido entregado, mostrar con ✔️
-                    li.innerHTML = '<span class="check">✔️</span>' + itemText;
-                } else {
-                    // Si el producto no ha sido entregado, mostrar con ❌
-                    li.innerHTML = '<span class="x">❌</span>' + itemText;
-                }
-
-                previewList.appendChild(li);
+        // Función para alternar la visibilidad de transformadores
+        function toggleTransformers() {
+            const powerType = document.getElementById('power-type').value;
+            const transformersItem = document.getElementById('transformers-item');
+            const transformersProduct = document.getElementById('transformers-product');
+            const transformersText = document.getElementById('transformers-text');
+            const transformersSelect = document.getElementById('transformers');
+            
+            if (powerType === 'individual') {
+                transformersItem.classList.remove('hidden');
+                transformersProduct.classList.remove('hidden');
+                
+                // Actualizar texto según selección
+                const transformerCount = transformersSelect.value;
+                transformersText.textContent = `${transformerCount} Transformador${transformerCount > 1 ? 'es' : ''}`;
+            } else {
+                transformersItem.classList.add('hidden');
+                transformersProduct.classList.add('hidden');
             }
-
-            // Mostrar el contenedor de previsualización
-            document.getElementById("preview-container").style.display = "block";
         }
+        
+        // Función para alternar el estado de entrega
+        function toggleDelivered(checkbox) {
+            const productItem = checkbox.parentNode;
+            checkbox.classList.toggle("checked");
+            productItem.classList.toggle("completed");
+            updateProgress();
+        }
+        
+        // Función para actualizar la barra de progreso
+        function updateProgress() {
+            const totalItems = document.querySelectorAll('.product-item:not(.hidden)').length;
+            const completedItems = document.querySelectorAll('.product-checkbox.checked').length;
+            const progress = (completedItems / totalItems) * 100;
+            
+            document.getElementById('progress-bar').style.width = progress + '%';
+        }
+        
+        // Función para generar la previsualización
+        function generatePreview() {
+            const productItems = document.querySelectorAll('.product-item:not(.hidden)');
+            const previewList = document.getElementById('preview-list');
+            previewList.innerHTML = '';
+            
+            // Obtener configuración de alimentación
+            const powerType = document.getElementById('power-type').value;
+            const transformerCount = document.getElementById('transformers').value;
+            
+            productItems.forEach(item => {
+                const isCompleted = item.classList.contains('completed');
+                let productText = item.querySelector('.product-content h3').textContent;
+                
+                // Para el disco duro, añadir la capacidad seleccionada
+                if (productText === 'Disco Duro') {
+                    const selectValue = document.getElementById('disco-duro').value;
+                    productText = `Disco Duro (${selectValue})`;
+                }
+                
+                // Para transformadores, usar la cantidad seleccionada
+                if (productText.includes('Transformador')) {
+                    if (powerType === 'individual') {
+                        productText = `${transformerCount} Transformador${transformerCount > 1 ? 'es' : ''}`;
+                    } else {
+                        productText = 'Fuente de Alimentación Centralizada';
+                    }
+                }
+                
+                const li = document.createElement('li');
+                li.className = 'preview-item';
+                
+                if (isCompleted) {
+                    li.innerHTML = `<span class="check"><i class="fas fa-check-circle"></i></span> ${productText}`;
+                } else {
+                    li.innerHTML = `<span class="x"><i class="fas fa-times-circle"></i></span> ${productText}`;
+                }
+                
+                previewList.appendChild(li);
+            });
+            
+            // Mostrar la previsualización con animación
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.style.display = 'block';
+            
+            // Desplazarse suavemente hacia la previsualización
+            previewContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Actualizar texto de transformadores cuando cambia la selección
+        document.getElementById('transformers').addEventListener('change', function() {
+            const transformerCount = this.value;
+            document.getElementById('transformers-text').textContent = 
+                `${transformerCount} Transformador${transformerCount > 1 ? 'es' : ''}`;
+        });
+        
+        // Efecto de carga inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = "1";
+            // Inicializar la barra de progreso
+            updateProgress();
+            // Configurar visibilidad inicial de transformadores
+            toggleTransformers();
+        });
     </script>
 </body>
 </html>
