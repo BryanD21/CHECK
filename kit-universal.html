@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SELECCIONA TU KIT A ENTREGAR - LENSOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border-radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            margin-bottom: 1.2rem;
+            text-align: center;
+            animation: fadeIn 1s ease;
+            width: 100%;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .logo a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .logo a:hover {
+            color: var(--primary);
+        }
+
+        .logo a i {
+            margin-right: 0.5rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h2 {
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: white;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .config-container {
+            padding: 1.2rem;
+        }
+
+        .config-section {
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .config-section:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .config-section h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .config-section h3 i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .config-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .option-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-card.selected::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-bottom-left-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .option-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .option-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.8rem;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .option-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .option-description {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .cable-info {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 6px;
+            padding: 0.7rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .cable-info strong {
+            color: var(--primary);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            width: fit-content;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: #f1f5f9;
+            border: none;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .quantity-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 34px;
+            border: none;
+            text-align: center;
+            font-weight: 500;
+            -moz-appearance: textfield;
+            font-size: 0.9rem;
+        }
+
+        .quantity-input::-webkit-outer-spin-button,
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .actions {
+            padding: 0 1.2rem 1.2rem;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 0.9rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .preview-container {
+            margin: 1.2rem;
+            padding: 1.2rem;
+            border: 1px solid #e2e8f0;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .preview-container h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .preview-list {
+            list-style: none;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: center;
+            padding: 0.7rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            color: var(--success);
+            margin-right: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .x {
+            color: var(--danger);
+            margin-right: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive mejorado para móviles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .config-container {
+                padding: 1rem;
+            }
+            
+            .config-section {
+                padding: 1rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .config-options {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .option-card {
+                padding: 0.9rem;
+            }
+            
+            .option-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+            }
+            
+            .option-title {
+                font-size: 0.9rem;
+            }
+            
+            .option-description {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 0.8rem;
+            }
+            
+            .quantity-btn {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .quantity-input {
+                width: 45px;
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+            
+            .header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .config-section h3 {
+                font-size: 1rem;
+            }
+            
+            .option-card {
+                padding: 0.8rem;
+            }
+        }
+
+        /* Mejora de scroll en móviles */
+        @media (max-height: 700px) and (orientation: landscape) {
+            body {
+                padding: 8px;
+            }
+            
+            .logo {
+                margin-bottom: 0.8rem;
+            }
+            
+            .container {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <h1>LENSOR</h1>
+        <a href="index.html">
+            <i class="fas fa-arrow-left"></i> Volver a selección de kits
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h2>SELECCIONA TU KIT A ENTREGAR</h2>
+            <p>Personalice los componentes de su kit de seguridad</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div class="config-container">
+            <!-- Sección de Cantidad de Cámaras -->
+            <div class="config-section">
+                <h3><i class="fas fa-camera"></i> Cantidad de Cámaras</h3>
+                <div class="config-options">
+                    <div class="option-card">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div class="option-title">Cantidad de Cámaras</div>
+                        </div>
+                        <div class="option-description">
+                            Seleccione la cantidad de cámaras para su sistema de seguridad.
+                        </div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity('cameras', -1)">-</button>
+                            <input type="number" id="cameras" class="quantity-input" value="2" min="1" max="32" onchange="updateCableCalculation()">
+                            <button class="quantity-btn" onclick="updateQuantity('cameras', 1)">+</button>
+                        </div>
+                        <div class="cable-info" id="cable-calculation">
+                            <strong>Total de cable necesario:</strong> 40 metros (20m por cámara)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Grabador -->
+            <div class="config-section">
+                <h3><i class="fas fa-video"></i> Seleccione el Grabador</h3>
+                <div class="config-options">
+                    <div class="option-card selected" onclick="selectOption(this, 'dvr-standard')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-dvr"></i>
+                            </div>
+                            <div class="option-title">DVR Estándar 4CH</div>
+                        </div>
+                        <div class="option-description">
+                            Grabador digital para cámaras análogas con 4 canales y conectividad remota.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'dvr-advanced')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <div class="option-title">DVR Avanzado 8CH</div>
+                        </div>
+                        <div class="option-description">
+                            Grabador de 8 canales con análisis inteligente de video y conectividad múltiple.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'dvr-pro')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div class="option-title">DVR Profesional 16CH</div>
+                        </div>
+                        <div class="option-description">
+                            Grabador profesional de 16 canales para sistemas de seguridad de mediana escala.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'dvr-enterprise')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="option-title">DVR Empresarial 32CH</div>
+                        </div>
+                        <div class="option-description">
+                            Grabador empresarial de 32 canales para sistemas de seguridad de gran escala.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Disco Duro -->
+            <div class="config-section">
+                <h3><i class="fas fa-hdd"></i> Seleccione el Disco Duro</h3>
+                <div class="config-options">
+                    <div class="option-card selected" onclick="selectOption(this, 'hdd-500gb')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="option-title">500GB</div>
+                        </div>
+                        <div class="option-description">
+                            Almacenamiento básico para aproximadamente 7 días de grabación continua.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'hdd-1tb')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="option-title">1TB</div>
+                        </div>
+                        <div class="option-description">
+                            Almacenamiento estándar para aproximadamente 15 días de grabación continua.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'hdd-2tb')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="option-title">2TB</div>
+                        </div>
+                        <div class="option-description">
+                            Almacenamiento ampliado para aproximadamente 30 días de grabación continua.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'hdd-4tb')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="option-title">4TB</div>
+                        </div>
+                        <div class="option-description">
+                            Almacenamiento extendido para aproximadamente 60 días de grabación continua.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Tipo de Cámaras -->
+            <div class="config-section">
+                <h3><i class="fas fa-camera"></i> Tipo de Cámaras</h3>
+                <div class="config-options">
+                    <div class="option-card selected" onclick="selectOption(this, 'cam-dome')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="option-title">Cámaras Dome</div>
+                        </div>
+                        <div class="option-description">
+                            Cámaras discretas para interior/exterior con visión 360° y protección antivandálica.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'cam-bullet')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="option-title">Cámaras Bullet</div>
+                        </div>
+                        <div class="option-description">
+                            Cámaras para exterior con mayor alcance de visión nocturna y diseño robusto.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'cam-ptz')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                            </div>
+                            <div class="option-title">Cámaras PTZ</div>
+                        </div>
+                        <div class="option-description">
+                            Cámaras con movimiento, zoom y seguimiento automático de objetos.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'cam-wifi')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <div class="option-title">Cámaras WiFi</div>
+                        </div>
+                        <div class="option-description">
+                            Cámaras inalámbricas con conectividad WiFi para instalación flexible sin cables.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Alimentación -->
+            <div class="config-section">
+                <h3><i class="fas fa-bolt"></i> Configuración de Alimentación</h3>
+                <div class="config-options">
+                    <div class="option-card selected" onclick="selectOption(this, 'power-individual')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <div class="option-title">Transformadores Individuales</div>
+                        </div>
+                        <div class="option-description">
+                            Cada cámara incluye su propio transformador para mayor flexibilidad de instalación.
+                        </div>
+                        <div id="transformers-config">
+                            <label>Cantidad de Transformadores:</label>
+                            <div class="quantity-control">
+                                <button class="quantity-btn" onclick="updateQuantity('transformers', -1)">-</button>
+                                <input type="number" id="transformers" class="quantity-input" value="2" min="1" max="32">
+                                <button class="quantity-btn" onclick="updateQuantity('transformers', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="selectOption(this, 'power-centralized')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-car-battery"></i>
+                            </div>
+                            <div class="option-title">Fuente Centralizada</div>
+                        </div>
+                        <div class="option-description">
+                            Una sola fuente de alimentación para todas las cámaras, más ordenada y eficiente.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de Accesorios -->
+            <div class="config-section">
+                <h3><i class="fas fa-tools"></i> Accesorios Adicionales</h3>
+                <div class="config-options">
+                    <div class="option-card selected" onclick="toggleOption(this, 'protector')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="option-title">Protector de Voltaje</div>
+                        </div>
+                        <div class="option-description">
+                            Protege su equipo de picos de voltaje y variaciones eléctricas.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card selected" onclick="toggleOption(this, 'regleta')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <div class="option-title">Regleta</div>
+                        </div>
+                        <div class="option-description">
+                            Regleta de 6 tomas con protección para organizar la conexión de equipos.
+                        </div>
+                    </div>
+                    
+                    <div class="option-card" onclick="toggleOption(this, 'ups')">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-car-battery"></i>
+                            </div>
+                            <div class="option-title">Sistema UPS</div>
+                        </div>
+                        <div class="option-description">
+                            Respaldo de energía para continuar grabando durante cortes eléctricos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn" onclick="generatePreview()">
+                <i class="fas fa-eye"></i> Generar Previsualización
+            </button>
+        </div>
+        
+        <div class="preview-container" id="preview-container">
+            <h3>Resumen de su Kit Personalizado</h3>
+            <ul class="preview-list" id="preview-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Función para actualizar el cálculo de cable
+        function updateCableCalculation() {
+            const cameraCount = document.getElementById('cameras').value;
+            const totalCable = cameraCount * 20;
+            const cableInfo = document.getElementById('cable-calculation');
+            cableInfo.innerHTML = `<strong>Total de cable necesario:</strong> ${totalCable} metros (20m por cámara)`;
+        }
+        
+        // Función para seleccionar una opción (solo una por grupo)
+        function selectOption(card, value) {
+            const parentSection = card.closest('.config-section');
+            const allCards = parentSection.querySelectorAll('.option-card');
+            
+            allCards.forEach(c => {
+                c.classList.remove('selected');
+            });
+            
+            card.classList.add('selected');
+            
+            // Si es la sección de alimentación, manejar visibilidad de transformadores
+            if (value.includes('power-')) {
+                const transformersConfig = document.getElementById('transformers-config');
+                if (value === 'power-individual') {
+                    transformersConfig.style.display = 'block';
+                } else {
+                    transformersConfig.style.display = 'none';
+                }
+            }
+        }
+        
+        // Función para alternar opciones (múltiples seleccionables)
+        function toggleOption(card, value) {
+            card.classList.toggle('selected');
+        }
+        
+        // Función para actualizar cantidades
+        function updateQuantity(inputId, change) {
+            const input = document.getElementById(inputId);
+            let value = parseInt(input.value) + change;
+            
+            // Asegurarse de que esté dentro de los límites
+            const min = parseInt(input.min);
+            const max = parseInt(input.max);
+            
+            if (value < min) value = min;
+            if (value > max) value = max;
+            
+            input.value = value;
+            
+            // Si actualizamos cámaras, actualizar también transformadores y cálculo de cable
+            if (inputId === 'cameras') {
+                const transformersInput = document.getElementById('transformers');
+                if (value > parseInt(transformersInput.value)) {
+                    transformersInput.value = value;
+                }
+                transformersInput.max = value;
+                updateCableCalculation();
+            }
+        }
+        
+        // Función para generar la previsualización
+        function generatePreview() {
+            const previewList = document.getElementById('preview-list');
+            previewList.innerHTML = '';
+            
+            // Obtener valores seleccionados
+            const cameraCount = document.getElementById('cameras').value;
+            const dvrType = document.querySelector('.config-section:nth-child(2) .option-card.selected .option-title').textContent;
+            const hddSize = document.querySelector('.config-section:nth-child(3) .option-card.selected .option-title').textContent;
+            const cameraType = document.querySelector('.config-section:nth-child(4) .option-card.selected .option-title').textContent;
+            const powerType = document.querySelector('.config-section:nth-child(5) .option-card.selected .option-title').textContent;
+            
+            // Obtener valores de cantidad
+            const transformersCount = document.getElementById('transformers').value;
+            const totalCable = cameraCount * 20;
+            
+            // Obtener accesorios seleccionados
+            const protectorSelected = document.querySelector('.config-section:nth-child(6) .option-card:nth-child(1)').classList.contains('selected');
+            const regletaSelected = document.querySelector('.config-section:nth-child(6) .option-card:nth-child(2)').classList.contains('selected');
+            const upsSelected = document.querySelector('.config-section:nth-child(6) .option-card:nth-child(3)').classList.contains('selected');
+            
+            // Construir la lista de previsualización
+            const items = [
+                { text: `Grabador: ${dvrType}`, checked: true },
+                { text: `${cameraCount} Cámaras ${cameraType}`, checked: true },
+                { text: `Disco Duro: ${hddSize}`, checked: true },
+                { text: `${cameraCount} Conectores de Video`, checked: true },
+                { text: `${cameraCount} Conectores de Corriente`, checked: true },
+                { text: `${powerType === 'Transformadores Individuales' ? transformersCount + ' Transformadores' : 'Fuente Centralizada'}`, checked: true },
+                { text: `${totalCable} Metros de Cable`, checked: true },
+                { text: `${cameraCount} Cajas de Registro`, checked: true },
+                { text: `Protector de Voltaje`, checked: protectorSelected },
+                { text: `Regleta`, checked: regletaSelected },
+                { text: `Sistema UPS`, checked: upsSelected },
+                { text: `Cable de Red`, checked: true }
+            ];
+            
+            // Agregar items a la lista
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'preview-item';
+                
+                if (item.checked) {
+                    li.innerHTML = `<span class="check"><i class="fas fa-check-circle"></i></span> ${item.text}`;
+                } else {
+                    li.innerHTML = `<span class="x"><i class="fas fa-times-circle"></i></span> ${item.text}`;
+                }
+                
+                previewList.appendChild(li);
+            });
+            
+            // Mostrar la previsualización con animación
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.style.display = 'block';
+            
+            // Desplazarse suavemente hacia la previsualización
+            previewContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Efecto de carga inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = "1";
+            // Inicializar el cálculo de cable
+            updateCableCalculation();
+        });
+    </script>
+</body>
+</html>
